@@ -1,0 +1,59 @@
+{
+    "name": "Laravel PHP 8.4",
+    "dockerComposeFile": "compose.yaml",
+    "service": "app",
+    "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+    "shutdownAction": "stopCompose",
+    "remoteUser": "vscode",
+    "forwardPorts": [
+        8000,
+        3306,
+        8025,
+        5173
+    ],
+    "portsAttributes": {
+        "8000": {
+            "label": "Laravel",
+            "onAutoForward": "openBrowser"
+        },
+        "3306": {
+            "label": "MariaDB",
+            "onAutoForward": "notify"
+        },
+        "8025": {
+            "label": "Mailpit",
+            "onAutoForward": "openBrowser"
+        },
+        "5173": {
+            "label": "Vite",
+            "onAutoForward": "notify",
+            "visibility": "public"
+        }
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "laravel.vscode-laravel",
+                "bmewburn.vscode-intelephense-client",
+                "onecentlin.laravel-blade",
+                "amiralizadeh9480.laravel-extra-intellisense",
+                "bradlc.vscode-tailwindcss",
+                "ms-azuretools.vscode-docker",
+                "EditorConfig.EditorConfig"
+            ],
+            "settings": {
+                "editor.formatOnSave": true,
+                "[php]": {
+                    "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
+                },
+                "[blade]": {
+                    "editor.defaultFormatter": "onecentlin.laravel-blade"
+                },
+                "php.validate.executablePath": "/usr/local/bin/php",
+                "intelephense.environment.phpVersion": "8.4.0"
+            }
+        }
+    },
+    "postCreateCommand": "composer run setup",
+    "postStartCommand": "bash .devcontainer/setup-codespace.sh && bash .devcontainer/verify-environment.sh"
+}
